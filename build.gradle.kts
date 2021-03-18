@@ -32,6 +32,8 @@ dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.15.0")
 }
 
+var runIdeDirectory: String? = null
+
 // Configure gradle-intellij-plugin plugin.
 // Read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
@@ -40,6 +42,7 @@ intellij {
     type = properties("platformType")
     downloadSources = properties("platformDownloadSources").toBoolean()
     updateSinceUntilBuild = true
+    runIdeDirectory = properties("runIdeDirectory")
 
     // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
     setPlugins(*properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty).toTypedArray())
@@ -105,6 +108,12 @@ tasks {
                 changelog.getLatest().toHTML()
             }
         )
+    }
+
+    runIde {
+        if (runIdeDirectory != null) {
+            ideDirectory(runIdeDirectory)
+        }
     }
 
     runPluginVerifier {
