@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.googee.tools.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.googee.tools.MyBundle
 
 class MyApplicationService {
 
